@@ -98,7 +98,7 @@ Lógica principal del sistema, ya que contiene la definición del servicio remot
 
 ---
 
-### 4. Base de datos
+## 4. Base de datos
 
 <div align="center">
 <img width="400" height="300" alt="image" src="https://github.com/user-attachments/assets/58ec56a0-cfc5-4aa9-9293-64887dfb1117" />
@@ -172,6 +172,7 @@ Aunque RMI puede manejar múltiples clientes, no está diseñado para entornos d
 Hay que resaltar que el uso de objetos serializables es muy importante para asegurar un flujo adecuado de datos en la red, evitando inconsistencias de comunicación. Por otro lado, se evidenció que las interfaces son de gran ayuda para separar la lógica de negocio de la lógica de comunicación. En general, la separación entre el cliente, el servidor y las interfaces remotas fue fundamental para lograr la modularidad del sistema, ya que esto no solo facilita su escalabilidad, sino que también permite agregar nuevos clientes o crear nuevas funcionalidades del servidor sin tener que modificar mucho la lógica del sistema. 
 
 Otro aspecto clave fue la necesidad de implementar un esquema de control de concurrencia y sincronización en el servidor para manejar varias solicitudes concurrentes. Esto permitió observar la importancia de evitar situaciones de carrera y controlar la integridad de los datos, sobre todo en operaciones de préstamo y devolución. 
+
 
 
 
