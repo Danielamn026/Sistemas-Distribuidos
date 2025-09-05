@@ -98,7 +98,11 @@ Lógica principal del sistema, ya que contiene la definición del servicio remot
 
 ---
 
-## 4. Requisitos (Linux)
+4. Base de datos
+
+La imagen corresponde a la **tabla books** de una base de datos en PostgreSQL. Esta tabla fue creada a partir del esquema definido en el código SQL y contiene tres columnas principales: **isbn**, **title** y **total_copies**. La primera funciona como clave primaria y almacena un identificador único para cada libro en formato de texto de hasta 20 caracteres. La segunda columna guarda el título del libro y la tercera refleja la cantidad de copias disponibles en la biblioteca, siempre con la condición de que no sea un valor negativo. Además de estas tres columnas, se muestra una cuarta llamada **loans**, que en realidad no forma parte física de la tabla books. Este campo extra aparece porque existe una relación entre books y la **tabla loans**, donde cada préstamo registrado en loans referencia el ISBN del libro correspondiente. En la imagen se observa como un acceso directo que permite navegar entre ambas tablas. En el contenido de la tabla se listan distintos libros de literatura clásica y contemporánea, como Cien años de soledad, Don Quijote de la Mancha o Rayuela, junto con su ISBN y el número de ejemplares disponibles, siendo una tabla pensada como el catálogo base sobre el cual se gestionan los préstamos del sistema de biblioteca.
+
+## 5. Requisitos (Linux)
 
 - Java 21+ (JDK)
 - Maven 3.8+
@@ -106,13 +110,13 @@ Lógica principal del sistema, ya que contiene la definición del servicio remot
 - Abrir el puerto TCP 1099 (RMI Registry)
 
 ---
-## 5. Compilación (Linux)
+## 6. Compilación (Linux)
 
 ```
 chmod +x scripts/ejecucion-servidor.sh scripts/ejecucion-cliente.sh
 mvn -q clean package
 ```
-## 6. Ejecución (Linux)
+## 7. Ejecución (Linux)
 
 - <h2>Servidor</h2>
 
@@ -148,13 +152,13 @@ export BIND_NAME="ServicioBiblioteca"
 ```
 ** No se exponen las credenciales de la base de datos por seguridad
 
-## 7. Pruebas 
+## 8. Pruebas 
 
 https://youtu.be/qbmjzDZDkIQ?si=D4bN__lURMrWpfNe
 
 Se realizaron distintos casos de prueba con el propósito de asegurar el correcto envio de las peticiones y la llegada de las consultas al servidor. Así mismo, se realizaron pruebas de control de lógica (buen funcionamiento del sistema de biblioteca).
 
-## 8. Observaciones y Conclusiones
+## 9. Observaciones y Conclusiones
 
 El taller fue una buena forma de aprender cómo aplicar la comunicación remota entre procesos utilizando Java RMI (Remote Method Invocation). Este último permitió que los métodos en un servidor pudieran ser invocados desde un cliente, simulando el comportamiento de una aplicación local. 
 
@@ -164,6 +168,7 @@ Aunque RMI puede manejar múltiples clientes, no está diseñado para entornos d
 Hay que resaltar que el uso de objetos serializables es muy importante para asegurar un flujo adecuado de datos en la red, evitando inconsistencias de comunicación. Por otro lado, se evidenció que las interfaces son de gran ayuda para separar la lógica de negocio de la lógica de comunicación. En general, la separación entre el cliente, el servidor y las interfaces remotas fue fundamental para lograr la modularidad del sistema, ya que esto no solo facilita su escalabilidad, sino que también permite agregar nuevos clientes o crear nuevas funcionalidades del servidor sin tener que modificar mucho la lógica del sistema. 
 
 Otro aspecto clave fue la necesidad de implementar un esquema de control de concurrencia y sincronización en el servidor para manejar varias solicitudes concurrentes. Esto permitió observar la importancia de evitar situaciones de carrera y controlar la integridad de los datos, sobre todo en operaciones de préstamo y devolución. 
+
 
 
 
