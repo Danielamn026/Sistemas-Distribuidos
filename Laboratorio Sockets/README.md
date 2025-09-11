@@ -108,6 +108,14 @@ Como ambos clientes fueron atendidos en paralelo, el tiempo final dependió del 
 
 Aunque la concurrencia mejoró la eficiencia en un 31%, se evidenció que la distribución desigual de trabajo afecta el aprovechamiento. Mientras una cajera quedaba desocupada después de 10 segundos, la otra seguía trabajando por 12 segundos más. Esto refleja que la concurrencia mejora los tiempos, pero no garantiza que los recursos estén balanceados si los clientes tienen cargas muy diferentes.
 
+- Prueba PC2
+<div align="center">
+<img width="1300" height="380" alt="image" src="https://github.com/user-attachments/assets/95c33d08-267f-44d8-8bb0-3b308127f513" />
+</div>
+<div align="center">
+<img width="1300" height="256" alt="image" src="https://github.com/user-attachments/assets/db5b70e3-91a5-41ae-bf02-3e35dd737df9" />
+</div>
+
 --- 
 
 ## Conclusiones
