@@ -1,3 +1,10 @@
+/**************************************************************
+         		Pontificia Universidad Javeriana
+     Autor: Daniela Medina
+     Fecha: 12 Septiembre 2025
+     Materia: Sistemas Distribuidos
+     Tema: Laboratorio de Sockets
+****************************************************************/
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.*;
@@ -101,3 +108,4 @@ public class socketudpcli {
         System.out.println("Métricas guardadas en " + csvFile);
     }
 }
+
