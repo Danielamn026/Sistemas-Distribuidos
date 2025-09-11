@@ -15,9 +15,9 @@ Presentado por:
 
 El programa simula un escenario en el que clientes llegan con un carrito de compras, y cada cajera procesa los productos del cliente.  
 
-- **Ejecución secuencial**: Una cajera atiende a un cliente y, cuando termina, comienza con el siguiente.  
-- **Ejecución concurrente con `Thread`**: Cada cajera trabaja en su propio hilo, atendiendo clientes al mismo tiempo.  
-- **Ejecución concurrente con `Runnable`**: Se crea un `Runnable` para representar el trabajo de cada cajera y se lanza en hilos independientes.  
+- Ejecución secuencial: Una cajera atiende a un cliente y, cuando termina, comienza con el siguiente.  
+- Ejecución concurrente con **Thread**: Cada cajera trabaja en su propio hilo, atendiendo clientes al mismo tiempo.  
+- Ejecución concurrente con **Runnable**: Se crea un Runnable para representar el trabajo de cada cajera y se lanza en hilos independientes.  
 
 El sistema mide el tiempo transcurrido para mostrar la diferencia entre procesamiento secuencial y paralelo.  
 
@@ -47,5 +47,6 @@ En cuanto a la ejecución, la clase `Main.java` es la encargada de simular el pr
 
 Para la ejecución concurrente, se presentan dos formas. La clase `MainRunnable.java` utiliza la interfaz Runnable, asociando cada cajera a un objeto que procesa en paralelo la compra de un cliente mediante hilos (Thread). En cambio, la clase `MainThread.java` hace uso de herencia de la clase Thread, creando instancias de CajeraThread que son lanzadas de manera concurrente para atender a los clientes.
 
+---
 
 
