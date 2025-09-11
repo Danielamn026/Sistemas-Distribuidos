@@ -1,3 +1,10 @@
+/**************************************************************
+         		Pontificia Universidad Javeriana
+     Autor: Daniela Medina
+     Fecha: 12 Septiembre 2025
+     Materia: Sistemas Distribuidos
+     Tema: Laboratorio de Sockets
+****************************************************************/
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -367,3 +374,4 @@ public class sockettcpcli {
         }
     }
 }
+
