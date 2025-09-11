@@ -49,4 +49,60 @@ Para la ejecución concurrente, se presentan dos formas. La clase `MainRunnable.
 
 ---
 
+## 4. Pruebas
+
+Se realizaron diferentes pruebas con variación en el número de productos que cada cliente lleva en su carrito, para observar cómo cambia el comportamiento de la ejecución secuencial y concurrente.
+
+### 4.1 Prueba 1 - PC1 y PC2 (valores por defecto en el código):
+En esta primera prueba, se ejecutó el programa con los valores que vienen por defecto en el código. Los clientes tenían carritos con distinta cantidad de productos y se pudo evidenciar que la ejecución concurrente resulta más rápida en comparación con la secuencial, ya que las cajeras pueden trabajar al mismo tiempo. Cabe resaltar que los valores del tiempo de procesamiento, fue igual para ambos PC´s.
+Se utilizaron los valores originales definidos en el código. El Cliente 1 tenía un carrito con 6 productos de tiempos `[2, 2, 1, 5, 2, 3]`, mientras que el Cliente 2 tenía 5 productos con tiempos `[1, 3, 5, 1, 1]`.
+
+- Ejecución secuencial:
+El procesamiento se hizo uno tras otro. La Cajera 1 atendió a Cliente 1 con un tiempo acumulado de aproximadamente 15 segundos, y luego la Cajera 2 atendió a Cliente 2 con unos 11 segundos. En total, el tiempo de la simulación fue de 26 segundos.
+
+- Ejecución concurrente:
+Al correr la simulación con hilos, ambas cajeras comenzaron al mismo tiempo. El Cliente 1 tardó alrededor de 15 segundos y el Cliente 2, 11 segundos. Sin embargo, como se ejecutaron en paralelo, el tiempo total estuvo determinado por el cliente más lento, es decir, 15 segundos.
+
+La concurrencia permitió reducir el tiempo global en un 42% respecto al secuencial, mostrando la ventaja de usar hilos cuando varias tareas independientes pueden ejecutarse en paralelo.
+
+### 4.2 Prueba 2 - PC1 (mismo número de productos para ambos clientes):
+En este caso, se modificaron los datos para que los dos clientes tuvieran la misma cantidad de productos en su carrito. Esto permitió observar un mejor balance en la carga de trabajo de las cajeras cuando se utilizó concurrencia, ya que ambas cajeras procesaron aproximadamente la misma cantidad de tiempo, optimizando mejor los recursos.
+Se configuró que Cliente 1 y Cliente 2 tuvieran la misma cantidad de productos, por ejemplo, 6 productos cada uno. Los tiempos asignados fueron:
+
+Cliente 1: `[2, 4, 3, 2, 5, 1]` (total de 17 segundos)
+
+Cliente 2: `[3, 2, 2, 4, 1, 3]` (total de 15 segundos)
+
+- Ejecución secuencial:
+El proceso tardó en total 32 segundos (17 + 15), ya que un cliente se atendía totalmente antes de iniciar con el otro.
+
+- Ejecución concurrente:
+Al ejecutarse de manera paralela, el tiempo dependió por el cliente más lento. En este caso, la Cajera de Cliente 1 tardó 17 segundos, mientras que la de Cliente 2 solo 15. Por lo tanto, el tiempo total fue de 17 segundos.
+
+Este caso muestra que cuando los clientes tienen carritos de tamaño similar, la concurrencia aprovecha mucho mejor los recursos disponibles. Se redujo el tiempo en un 47%, y además la carga de trabajo estuvo balanceada entre ambas cajeras.
+
+### 4.3 Prueba 3 - PC2 (diferente número de productos para los clientes):
+Aquí se probaron nuevos valores en los que los clientes no tenían la misma cantidad de productos. El resultado evidenció que, aunque la concurrencia sigue siendo más eficiente que la ejecución secuencial, una cajera finaliza antes que la otra debido a la diferencia en la carga de trabajo. Este escenario refleja cómo la distribución desigual de tareas puede afectar el aprovechamiento de la concurrencia.
+se probó una situación con desbalance en el número de productos de cada cliente.
+
+Cliente 1: `[2, 1, 3, 4]` (total de 10 segundos)
+
+Cliente 2: `[5, 2, 3, 2, 4, 1, 3, 2]` (total de 22 segundos)
+
+- Ejecución secuencial:
+El tiempo total fue la suma de ambos, es decir, 32 segundos.
+
+- Ejecución concurrente:
+Como ambos clientes fueron atendidos en paralelo, el tiempo total dependió del cliente con mayor carga. Cliente 1 terminó en solo 10 segundos, pero Cliente 2 tardó 22, por lo que el tiempo total fue de 22 segundos.
+
+Aunque la concurrencia mejoró la eficiencia en un 31%, se evidenció que la distribución desigual de trabajo afecta el aprovechamiento. Mientras una cajera quedaba desocupada después de 10 segundos, la otra seguía trabajando por 12 segundos más. Esto refleja que la concurrencia mejora los tiempos, pero no garantiza que los recursos estén balanceados si los clientes tienen cargas muy diferentes.
+
+## Conclusiones
+
+Los resultados demuestran que el uso de concurrencia en Java permite optimizar tiempos de ejecución en sistemas donde existen tareas independientes (en este caso, la atención de distintos clientes). Mientras que en la ejecución secuencial el tiempo total es la suma de todas las atenciones, en la ejecución concurrente el tiempo global queda determinado por la tarea más larga.
+
+Cuando los clientes tienen cargas similares (Prueba 2 PC1), la concurrencia muestra su mayor potencial, ya que los tiempos se reducen casi a la mitad y las cajeras trabajan de forma balanceada. Sin embargo, cuando las cargas son muy distintas (Prueba 3 PC2), aunque la concurrencia sigue siendo más eficiente que el proceso secuencial, algunos recursos no se aprovechan completamente, ya que una cajera termina antes que la otra.
+
+En conclusión, se evidencia de manera práctica los beneficios de la concurrencia, a la vez que resalta la importancia de considerar la distribución de cargas de trabajo para aprovechar al máximo los recursos del sistema.
+
 
