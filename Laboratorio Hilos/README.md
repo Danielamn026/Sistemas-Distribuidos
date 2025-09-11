@@ -58,6 +58,7 @@ En esta primera prueba, se ejecutó el programa con los valores que vienen por d
 Se utilizaron los valores originales definidos en el código. 
 
 Cliente 1: `[2, 2, 1, 5, 2, 3]`
+
 Cliente 2:  `[1, 3, 5, 1, 1]`.
 
 - Ejecución secuencial:
