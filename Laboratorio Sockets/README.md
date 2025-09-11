@@ -66,6 +66,15 @@ El procesamiento se hizo uno tras otro. La Cajera 1 atendió a Cliente 1 con un 
 -Ejecución concurrente:
 Al correr la simulación con hilos, ambas cajeras comenzaron al mismo tiempo. Cliente 1 tardó alrededor de 15 segundos y Cliente 2 aproximadamente 11 segundos. Sin embargo, como se ejecutaron en paralelo, el tiempo total estuvo determinado por el cliente más lento, es decir, 15 segundos.
 
+
+- Prueba PC2
+<div align="center">
+<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/623c4d62-0853-4587-9210-e0b53bcd5424" />
+</div>
+<div align="center">
+<img width="1300" height="261" alt="image" src="https://github.com/user-attachments/assets/511e5f9d-d1bb-45df-bf78-a0d650933a2a" />
+</div>
+
 La concurrencia permitió reducir el tiempo final en un 42% respecto al secuencial, mostrando  la ventaja de usar hilos cuando varias tareas independientes pueden ejecutarse en paralelo.
 
 ### 4.2 Prueba 2 - PC1 (mismo número de productos para ambos clientes):
