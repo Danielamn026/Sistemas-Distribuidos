@@ -110,7 +110,7 @@ Aunque la concurrencia mejoró la eficiencia en un 31%, se evidenció que la dis
 
 - Prueba PC2
 <div align="center">
-<img width="1300" height="380" alt="image" src="https://github.com/user-attachments/assets/95c33d08-267f-44d8-8bb0-3b308127f513" />
+<img width="1300" height="420" alt="image" src="https://github.com/user-attachments/assets/95c33d08-267f-44d8-8bb0-3b308127f513" />
 </div>
 <div align="center">
 <img width="1300" height="256" alt="image" src="https://github.com/user-attachments/assets/db5b70e3-91a5-41ae-bf02-3e35dd737df9" />
