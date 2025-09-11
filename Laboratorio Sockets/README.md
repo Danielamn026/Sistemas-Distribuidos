@@ -57,16 +57,17 @@ Se realizaron diferentes pruebas con variación en el número de productos que c
 En esta primera prueba, se ejecutó el programa con los valores que vienen por defecto en el código. Los clientes tenían carritos con distinta cantidad de productos y se pudo evidenciar que la ejecución concurrente resulta más rápida en comparación con la secuencial, ya que las cajeras pueden trabajar al mismo tiempo. Cabe resaltar que los valores de tiempo de procesamiento en ambos PC´s fueron los mismos.
 Se utilizaron los valores originales definidos en el código. 
 
-Cliente 1 tenía un carrito con 6 productos de tiempos `[2, 2, 1, 5, 2, 3]`
+Cliente 1: `[2, 2, 1, 5, 2, 3]`
 
-Cliente 2 tenía 5 productos con tiempos `[1, 3, 5, 1, 1]`
+Cliente 2: `[1, 3, 5, 1, 1]`
 
 -Ejecución secuencial:
 El procesamiento se hizo uno tras otro. La Cajera 1 atendió a Cliente 1 con un tiempo acumulado de aproximadamente 15 segundos, y luego la Cajera 2 atendió a Cliente 2 con unos 11 segundos. En total, el tiempo de la simulación fue cercano a 26 segundos.
 
 -Ejecución concurrente:
-Al correr la simulación con hilos, ambas cajeras comenzaron al mismo tiempo. Cliente 1 tardó alrededor de 15 segundos y Cliente 2 aproximadamente 11 segundos. Sin embargo, como se ejecutaron en paralelo, el tiempo total estuvo determinado por el cliente más lento, es decir, 15 segundos.
+Utilizando la implementación `Runnable`, la secuencia de procesamiento de los productos de los clientes es muy similar a la observada en la implementación con `Thread`. Ambas cajeras inician la atención de sus respectivos clientes de manera casi simultánea, lo que permite que el trabajo se realice en paralelo. En este escenario, Cliente 2 completa su compra en 11 segundos, mientras que Cliente 1 termina en 15 segundos, resultando en un tiempo total de ejecución para todo el sistema de 15 segundos, que corresponde al tiempo del cliente más lento. Esto demuestra que la concurrencia con Runnable mantiene un comportamiento consistente y eficiente, aprovechando la ejecución paralela para reducir el tiempo global.
 
+La concurrencia permitió reducir el tiempo final en un 42% respecto al secuencial, mostrando  la ventaja de usar hilos cuando varias tareas independientes pueden ejecutarse en paralelo.
 
 - Prueba PC2
 <div align="center">
@@ -76,38 +77,37 @@ Al correr la simulación con hilos, ambas cajeras comenzaron al mismo tiempo. Cl
 <img width="1300" height="261" alt="image" src="https://github.com/user-attachments/assets/511e5f9d-d1bb-45df-bf78-a0d650933a2a" />
 </div>
 
-La concurrencia permitió reducir el tiempo final en un 42% respecto al secuencial, mostrando  la ventaja de usar hilos cuando varias tareas independientes pueden ejecutarse en paralelo.
 
 ### 4.2 Prueba 2 - PC1 (mismo número de productos para ambos clientes):
 En este caso, se modificaron los datos para que los dos clientes tuvieran la misma cantidad de productos en su carrito. Esto permitió observar un balance más uniforme en la carga de trabajo de las cajeras cuando se utilizó concurrencia, ya que ambas cajeras procesaron aproximadamente la misma cantidad de tiempo, optimizando mejor los recursos.
 Se configuró que Cliente 1 y Cliente 2 tuvieran la misma cantidad de productos, por ejemplo, 6 productos cada uno. Los tiempos asignados fueron:
 
-Cliente 1: `[2, 4, 3, 2, 5, 1]` (total de 17 segundos)
+Cliente 1: `[7, 12, 6, 25, 20, 13]` (total de 17 segundos)
 
-Cliente 2: `[3, 2, 2, 4, 1, 3]` (total de 15 segundos)
+Cliente 2: `[7, 12, 6, 25, 20, 13]` (total de 15 segundos)
 
 - Ejecución secuencial:
-El proceso tardó en total 32 segundos (17 + 15), ya que un cliente se atendía completamente antes de iniciar con el otro.
+El proceso tardó en total 166 segundos (83 + 83), ya que un cliente se atendía completamente antes de iniciar con el otro.
 
 - Ejecución concurrente:
-Al ejecutarse de manera paralela, el tiempo dependió por el cliente más lento. En este caso, la Cajera de Cliente 1 tardó 17 segundos, mientras que la de Cliente 2 solo 15. Por lo tanto, el tiempo final fue de 17 segundos.
+En la ejecución concurrente utilizando `Thread`, ambos clientes comienzan a ser atendidos al mismo tiempo, desde el segundo 0, y logran finalizar sus compras simultáneamente en 83 segundos, demostrando que la concurrencia permite que los procesos se desarrollen de manera paralela sin que uno dependa del otro. De manera similar, al emplear la implementación basada en `Runnable`, se observa el mismo patrón: ambos clientes finalizan sus compras al mismo tiempo, también en 83 segundo.
 
-Este caso muestra que cuando los clientes tienen carritos de tamaño similar, la concurrencia aprovecha mucho mejor los recursos disponibles. Se redujo el tiempo en un 47%, y además la carga de trabajo estuvo balanceada entre ambas cajeras.
+Este caso muestra que cuando los clientes tienen carritos de tamaño similar, la concurrencia aprovecha mucho mejor los recursos disponibles. Con cargas idénticas, la concurrencia maximiza la eficiencia. El tiempo se reduce exactamente a la mitad frente a la secuencial, y ambas formas de concurrencia (Thread y Runnable) se comportan de manera idéntica.
 
 ### 4.3 Prueba 3 - PC2 (diferente número de productos para los clientes):
 Aquí se probaron nuevos valores en los que los clientes no tenían la misma cantidad de productos. El resultado evidenció que, aunque la concurrencia sigue siendo más eficiente que la ejecución secuencial, una cajera finaliza antes que la otra debido a la diferencia en la carga de trabajo. Este escenario refleja cómo la distribución desigual de tareas puede afectar el aprovechamiento de la concurrencia.
 Se probó una situación con desbalance en el número de productos de cada cliente.
 
-Cliente 1: `[2, 1, 3, 4]` (total de 10 segundos)
-Cliente 2: `[5, 2, 3, 2, 4, 1, 3, 2]` (total de 22 segundos)
+Cliente 1: `[10, 5, 8, 1, 1, 22]` → 6 productos
+Cliente 2: `[7, 27, 2, 13, 3]` → 5 productos
 
 - Ejecución secuencial:
-El tiempo total fue la suma de ambos, es decir, 32 segundos.
+El tiempo total fue la suma de ambos, es decir, 112 segundos. Ya que, la Cajera 1 termina Cliente 1 en 60s, luego Cajera 2 termina Cliente 2 en 52s.
 
 - Ejecución concurrente:
-Como ambos clientes fueron atendidos en paralelo, el tiempo final dependió del cliente con mayor carga. Cliente 1 terminó en solo 10 segundos, pero Cliente 2 tardó 22, por lo que el tiempo total fue de 22 segundos.
+Tanto en la implementación concurrente utilizando `Thread` como en la que utiliza `Runnable`, ambos clientes inician su atención casi que al mismo tiempo. En estas ejecuciones, la Cajera 1 completa la compra de Cliente 1 en 60 segundos, mientras que la Cajera 2 termina con Cliente 2 en 52 segundos, resultando en un tiempo global de 60 segundos, que corresponde al tiempo del cliente que tarda más. Esto indica que, independientemente de si se usa Thread o Runnable, la concurrencia permite que las tareas se realicen de manera paralela y eficiente, reduciendo el tiempo total de atención.
 
-Aunque la concurrencia mejoró la eficiencia en un 31%, se evidenció que la distribución desigual de trabajo afecta el aprovechamiento. Mientras una cajera quedaba desocupada después de 10 segundos, la otra seguía trabajando por 12 segundos más. Esto refleja que la concurrencia mejora los tiempos, pero no garantiza que los recursos estén balanceados si los clientes tienen cargas muy diferentes.
+La concurrencia sigue siendo más eficiente (reducción de 46%). Sin embargo, la diferencia de carga de trabajo provoca que una cajera quede inactiva antes que la otra. Esto refleja que la concurrencia mejora los tiempos, pero no garantiza que los recursos estén balanceados si los clientes tienen cargas muy diferentes, es decir, la eficiencia máxima se logra cuando los clientes tienen cargas similares.
 
 - Prueba PC2
 <div align="center">
