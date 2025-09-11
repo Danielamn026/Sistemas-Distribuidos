@@ -61,10 +61,10 @@ Cliente 1: `[2, 2, 1, 5, 2, 3]`
 
 Cliente 2: `[1, 3, 5, 1, 1]`
 
--Ejecución secuencial:
+- Ejecución secuencial:
 El procesamiento se hizo uno tras otro. La Cajera 1 atendió a Cliente 1 con un tiempo acumulado de aproximadamente 15 segundos, y luego la Cajera 2 atendió a Cliente 2 con unos 11 segundos. En total, el tiempo de la simulación fue cercano a 26 segundos.
 
--Ejecución concurrente:
+- Ejecución concurrente:
 Utilizando la implementación `Runnable`, la secuencia de procesamiento de los productos de los clientes es muy similar a la observada en la implementación con `Thread`. Ambas cajeras inician la atención de sus respectivos clientes de manera casi simultánea, lo que permite que el trabajo se realice en paralelo. En este escenario, Cliente 2 completa su compra en 11 segundos, mientras que Cliente 1 termina en 15 segundos, resultando en un tiempo total de ejecución para todo el sistema de 15 segundos, que corresponde al tiempo del cliente más lento. Esto demuestra que la concurrencia con Runnable mantiene un comportamiento consistente y eficiente, aprovechando la ejecución paralela para reducir el tiempo global.
 
 La concurrencia permitió reducir el tiempo final en un 42% respecto al secuencial, mostrando  la ventaja de usar hilos cuando varias tareas independientes pueden ejecutarse en paralelo.
