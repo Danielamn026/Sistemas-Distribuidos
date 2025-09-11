@@ -39,11 +39,11 @@ El sistema mide el tiempo transcurrido para mostrar la diferencia entre procesam
 
 ## 3. Documentación del Código
 
-La clase `Cajera.java` representa a una cajera que procesa compras de manera secuencial. A través de su método procesarCompra(), recibe un cliente y el tiempo inicial de la simulación, recorriendo el carrito de productos y simulando con pausas (Thread.sleep()) el tiempo que tardaría en atender cada uno. Esta clase no hace uso de hilos.
+- La clase `Cajera.java` representa a una cajera que procesa compras de manera secuencial. A través de su método procesarCompra(), recibe un cliente y el tiempo inicial de la simulación, recorriendo el carrito de productos y simulando con pausas (Thread.sleep()) el tiempo que tardaría en atender cada uno. Esta clase no hace uso de hilos.
 
-La clase `CajeraThread.java` extiende de Thread y permite que cada cajera se ejecute como un hilo independiente. Al iniciar con start(), se invoca el método run(), que procesa la compra de un cliente en paralelo, simulando igualmente los tiempos de atención de cada producto.
+- La clase `CajeraThread.java` extiende de Thread y permite que cada cajera se ejecute como un hilo independiente. Al iniciar con start(), se invoca el método run(), que procesa la compra de un cliente en paralelo, simulando igualmente los tiempos de atención de cada producto.
 
-Por su parte, la clase `Cliente.java` represneta a los clientes del supermercado. Cada cliente tiene un nombre y un carrito de compras representado como un arreglo de enteros, donde cada número corresponde al tiempo necesario para procesar un producto. Esta clase se utiliza tanto en la ejecución secuencial como en la concurrente.
+- La clase `Cliente.java` representa a los clientes del supermercado. Cada cliente tiene un nombre y un carrito de compras representado como un arreglo de enteros, donde cada número corresponde al tiempo necesario para procesar un producto. Esta clase se utiliza tanto en la ejecución secuencial como en la concurrente.
 
 En cuanto a la ejecución, `la clase Main.java` es la encargada de simular el proceso secuencial. Allí se crean clientes y cajeras, y las compras se procesan una tras otra, mostrando el tiempo total que tarda el sistema sin utilizar hilos.
 
