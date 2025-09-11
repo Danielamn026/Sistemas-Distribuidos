@@ -28,7 +28,7 @@ import java.util.Locale;
  */
 public class sockettcpcli {
 
-    // Default configuration
+    // Configuración por defecto del cliente TCP
     private static String host = "127.0.0.1";
     private static int port = 6001;
     private static int iterations = 0;         // 0 => modo interactivo
@@ -42,9 +42,9 @@ public class sockettcpcli {
     private static int warmup = 5;             // mensajes que no se registran (calentar JVM/TCP)
 
     public static void main(String[] args) {
-        // Parse command line arguments
+        // Analiza los argumentos de línea de comando y configura el cliente
         parseArgs(args);
-        // Choose mode: interactive or benchmark
+         // Decide el modo de ejecución según iterations: interactivo, benchmark
         if (iterations <= 0) {
             runInteractive();
         } else {
@@ -52,69 +52,69 @@ public class sockettcpcli {
         }
     }
 
-    /**
-     * Parses command line arguments and sets configuration variables.
-     */
+         /**
+         * parseArgs - analiza los argumentos de la línea de comando y
+         * asigna valores a las variables de configuración.
+         */
     private static void parseArgs(String[] argv) {
         for (int i = 0; i < argv.length; i++) {
             String a = argv[i];
             switch (a) {
                 case "-h":
                 case "--host":
-                    host = argv[++i];
+                    host = argv[++i]; // Siguiente argumento = host
                     break;
                 case "-p":
                 case "--port":
-                    port = Integer.parseInt(argv[++i]);
+                    port = Integer.parseInt(argv[++i]); // Puerto
                     break;
                 case "-n":
                 case "--iterations":
-                    iterations = Integer.parseInt(argv[++i]);
+                    iterations = Integer.parseInt(argv[++i]); // Número de iteraciones
                     break;
                 case "-size":
                 case "--size":
-                    payloadSize = Integer.parseInt(argv[++i]);
+                    payloadSize = Integer.parseInt(argv[++i]); // Tamaño del payload
                     break;
                 case "-interval":
                 case "--interval":
-                    intervalMs = Long.parseLong(argv[++i]);
+                    intervalMs = Long.parseLong(argv[++i]); // Intervalo entre mensajes
                     break;
                 case "-csv":
-                    csvPath = argv[++i];
+                    csvPath = argv[++i]; // Ruta del archivo CSV
                     break;
                 case "--nodelay":
-                    tcpNoDelay = true;
+                    tcpNoDelay = true; // Habilita TCP_NODELAY
                     break;
                 case "--nodelay=false":
-                    tcpNoDelay = false;
+                    tcpNoDelay = false; // Desactiva TCP_NODELAY
                     break;
                 case "--keepalive":
-                    keepAlive = true;
+                    keepAlive = true; // Habilita keep-alive
                     break;
                 case "--keepalive=false":
-                    keepAlive = false;
+                    keepAlive = false; // Desactiva keep-alive
                     break;
                 case "--timeout":
-                    soTimeoutMs = Integer.parseInt(argv[++i]);
+                    soTimeoutMs = Integer.parseInt(argv[++i]); // Timeout socket
                     break;
                 case "--rcvbuf":
-                    rcvBuf = Integer.parseInt(argv[++i]);
+                    rcvBuf = Integer.parseInt(argv[++i]); // Buffer de recepción
                     break;
                 case "--sndbuf":
-                    sndBuf = Integer.parseInt(argv[++i]);
+                    sndBuf = Integer.parseInt(argv[++i]); // Buffer de envío
                     break;
                 case "--warmup":
-                    warmup = Integer.parseInt(argv[++i]);
+                    warmup = Integer.parseInt(argv[++i]); // Mensajes de calentamiento
                     break;
                 default:
-                    // Ignore unknown arguments
-                    break;
+                    break; // Ignora argumentos desconocidos
             }
         }
     }
 
     /**
-     * Configures socket options according to the current settings.
+     * configureSocket - ajusta opciones del socket según la configuración.
      */
     private static void configureSocket(Socket s) throws SocketException {
         s.setTcpNoDelay(tcpNoDelay);
@@ -125,7 +125,7 @@ public class sockettcpcli {
     }
 
     /**
-     * Prints socket configuration and connection info to the console.
+     * printSocketInfo - muestra información de la conexión y opciones del socket.
      */
     private static void printSocketInfo(Socket s) {
         try {
@@ -142,62 +142,63 @@ public class sockettcpcli {
 
     // =============== INTERACTIVE MODE ===============
     /**
-     * Runs the client in interactive mode, allowing the user to type messages and receive metrics.
+     * runInteractive - ejecuta el cliente en modo interactivo, donde el usuario
+     * puede escribir mensajes y recibir métricas por cada mensaje enviado.
      */
     private static void runInteractive() {
         System.out.println("Prueba de sockets TCP (cliente) - MODO INTERACTIVO");
         try (Socket socket = new Socket()) {
-            // Connect to server
+            // Conectar al servidor con timeout de 5 segundos
             socket.connect(new InetSocketAddress(host, port), 5000);
-            configureSocket(socket);
-            printSocketInfo(socket);
+            configureSocket(socket);   // Ajustar opciones del socket
+            printSocketInfo(socket);   // Mostrar info de la conexión
+
             try (DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                  DataInputStream in = new DataInputStream(socket.getInputStream());
                  BufferedReader console = new BufferedReader(new InputStreamReader(System.in))) {
 
                 System.out.println("Escribe mensajes. 'fin' para salir.");
+                long prevRttNs = -1; // Para cálculo de jitter
+                long seq = 0;         // Contador de secuencia de mensajes
 
-                long prevRttNs = -1;
-                long seq = 0;
-
-                // Main loop: read user input, send to server, receive ACK, print metrics
+                // Bucle principal de interacción
                 while (true) {
                     System.out.print("> ");
-                    String userMsg = console.readLine();
+                    String userMsg = console.readLine(); // Leer línea del usuario
                     if (userMsg == null) break;
                     if (userMsg.trim().equalsIgnoreCase("fin")) {
-                        // Notify server to close connection
+                        // Mensaje de cierre al servidor
                         String finMsg = "FIN";
                         out.writeUTF(finMsg);
                         out.flush();
                         break;
                     }
 
-                    long clientSendNs = System.nanoTime();
-                    String payload = pad(userMsg, payloadSize); // optional: pad to fixed size
+                    long clientSendNs = System.nanoTime(); // Tiempo de envío
+                    String payload = pad(userMsg, payloadSize); // Ajustar payload al tamaño
                     String wireMsg = "USR|" + (++seq) + "|" + clientSendNs + "|" + payload.length() + "|" + payload;
 
-                    out.writeUTF(wireMsg);
+                    out.writeUTF(wireMsg); // Enviar mensaje al servidor
                     out.flush();
 
-                    String ack = in.readUTF();
-                    long clientRecvNs = System.nanoTime();
-                    long rttNs = clientRecvNs - clientSendNs;
+                    String ack = in.readUTF(); // Leer respuesta
+                    long clientRecvNs = System.nanoTime(); // Tiempo de recepción
+                    long rttNs = clientRecvNs - clientSendNs; // Calcular RTT
 
-                    AckFields af = parseAck(ack);
-                    double rttMs = rttNs / 1_000_000.0;
-                    double serverProcMs = (af.serverSendNs - af.serverRecvNs) / 1_000_000.0;
+                    AckFields af = parseAck(ack); // Extraer campos del ACK
+                    double rttMs = rttNs / 1_000_000.0; // RTT en ms
+                    double serverProcMs = (af.serverSendNs - af.serverRecvNs) / 1_000_000.0; // Procesamiento server
 
                     Double jitterMs = null;
                     if (prevRttNs > 0) {
-                        jitterMs = Math.abs(rttNs - prevRttNs) / 1_000_000.0;
+                        jitterMs = Math.abs(rttNs - prevRttNs) / 1_000_000.0; // Calcular jitter
                     }
                     prevRttNs = rttNs;
 
-                    int bytes = payload.getBytes(StandardCharsets.UTF_8).length;
-                    double throughputBps = (bytes * 8.0) / (rttNs / 1_000_000_000.0);
+                    int bytes = payload.getBytes(StandardCharsets.UTF_8).length; // Tamaño en bytes
+                    double throughputBps = (bytes * 8.0) / (rttNs / 1_000_000_000.0); // Throughput
 
-                    // Print metrics for each message
+                    // Mostrar métricas por mensaje
                     System.out.printf(Locale.US,
                             "[ACK seq=%d] RTT=%.3f ms, serverProc=%.3f ms, size=%d bytes, throughput=%.2f bps%s%n",
                             af.seq, rttMs, serverProcMs, bytes, throughputBps,
@@ -212,40 +213,111 @@ public class sockettcpcli {
 
     // =============== BENCHMARK MODE ===============
     /**
-     * Runs the client in benchmark mode, sending multiple messages and recording metrics to CSV.
+     * runBenchmark - ejecuta el cliente en modo benchmark, enviando múltiples mensajes
+     * y registrando métricas en un archivo CSV.
+     */
+    private static void runInteractive() {
+        System.out.println("Prueba de sockets TCP (cliente) - MODO INTERACTIVO");
+        try (Socket socket = new Socket()) {
+            // Conectar al servidor con timeout de 5 segundos
+            socket.connect(new InetSocketAddress(host, port), 5000);
+            configureSocket(socket);   // Ajustar opciones del socket
+            printSocketInfo(socket);   // Mostrar info de la conexión
+
+            try (DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                 DataInputStream in = new DataInputStream(socket.getInputStream());
+                 BufferedReader console = new BufferedReader(new InputStreamReader(System.in))) {
+
+                System.out.println("Escribe mensajes. 'fin' para salir.");
+                long prevRttNs = -1; // Para cálculo de jitter
+                long seq = 0;         // Contador de secuencia de mensajes
+
+                // Bucle principal de interacción
+                while (true) {
+                    System.out.print("> ");
+                    String userMsg = console.readLine(); // Leer línea del usuario
+                    if (userMsg == null) break;
+                    if (userMsg.trim().equalsIgnoreCase("fin")) {
+                        // Mensaje de cierre al servidor
+                        String finMsg = "FIN";
+                        out.writeUTF(finMsg);
+                        out.flush();
+                        break;
+                    }
+
+                    long clientSendNs = System.nanoTime(); // Tiempo de envío
+                    String payload = pad(userMsg, payloadSize); // Ajustar payload al tamaño
+                    String wireMsg = "USR|" + (++seq) + "|" + clientSendNs + "|" + payload.length() + "|" + payload;
+
+                    out.writeUTF(wireMsg); // Enviar mensaje al servidor
+                    out.flush();
+
+                    String ack = in.readUTF(); // Leer respuesta
+                    long clientRecvNs = System.nanoTime(); // Tiempo de recepción
+                    long rttNs = clientRecvNs - clientSendNs; // Calcular RTT
+
+                    AckFields af = parseAck(ack); // Extraer campos del ACK
+                    double rttMs = rttNs / 1_000_000.0; // RTT en ms
+                    double serverProcMs = (af.serverSendNs - af.serverRecvNs) / 1_000_000.0; // Procesamiento server
+
+                    Double jitterMs = null;
+                    if (prevRttNs > 0) {
+                        jitterMs = Math.abs(rttNs - prevRttNs) / 1_000_000.0; // Calcular jitter
+                    }
+                    prevRttNs = rttNs;
+
+                    int bytes = payload.getBytes(StandardCharsets.UTF_8).length; // Tamaño en bytes
+                    double throughputBps = (bytes * 8.0) / (rttNs / 1_000_000_000.0); // Throughput
+
+                    // Mostrar métricas por mensaje
+                    System.out.printf(Locale.US,
+                            "[ACK seq=%d] RTT=%.3f ms, serverProc=%.3f ms, size=%d bytes, throughput=%.2f bps%s%n",
+                            af.seq, rttMs, serverProcMs, bytes, throughputBps,
+                            (jitterMs != null ? String.format(Locale.US, ", jitter=%.3f ms", jitterMs) : ""));
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error cliente: " + e.getMessage());
+        }
+        System.out.println("Cliente finalizado.");
+    }
+
+    // =============== BENCHMARK MODE ===============
+    /**
+     * runBenchmark - ejecuta el cliente en modo benchmark, enviando múltiples mensajes
+     * y registrando métricas en un archivo CSV.
      */
     private static void runBenchmark() {
         System.out.println("Prueba de sockets TCP (cliente) - MODO BENCHMARK");
         System.out.printf("Destino %s:%d, n=%d, size=%d bytes, interval=%d ms, csv=%s%n",
                 host, port, iterations, payloadSize, intervalMs, csvPath);
 
-        // CSV
         try (Socket socket = new Socket()) {
-            // Connect to server
             socket.connect(new InetSocketAddress(host, port), 5000);
             configureSocket(socket);
             printSocketInfo(socket);
+
             try (DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                  DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
                  PrintWriter csv = new PrintWriter(new BufferedWriter(new FileWriter(csvPath)))) {
 
-                // Write CSV header
+                // Escribir encabezado CSV
                 csv.println("seq,payload_bytes,client_send_ns,client_recv_ns,rtt_ms,server_recv_ns,server_send_ns,server_proc_ms,throughput_bps,jitter_ms");
 
                 long prevRttNs = -1;
                 long seq = 0;
 
-                // Warmup phase (not measured)
+                // Fase de calentamiento (no medida)
                 for (int w = 0; w < warmup; w++) {
                     String payload = generatePayload(payloadSize);
                     String wireMsg = "MSG|WARMUP|" + System.nanoTime() + "|" + payload.length() + "|" + payload;
                     out.writeUTF(wireMsg);
                     out.flush();
-                    in.readUTF(); // discard ack
+                    in.readUTF(); // descartar ACK
                     if (intervalMs > 0) Thread.sleep(intervalMs);
                 }
 
-                // Measurement phase
+                // Fase de medición
                 StatCollector rttStats = new StatCollector();
                 StatCollector thrStats = new StatCollector();
 
@@ -272,7 +344,7 @@ public class sockettcpcli {
                     if (prevRttNs > 0) jitterMs = Math.abs(rttNs - prevRttNs) / 1_000_000.0;
                     prevRttNs = rttNs;
 
-                    // Write metrics to CSV
+                    // Guardar métricas en CSV
                     csv.printf(Locale.US, "%d,%d,%d,%d,%.6f,%d,%d,%.6f,%.2f,%s%n",
                             af.seq, bytes, clientSendNs, clientRecvNs, rttMs, af.serverRecvNs, af.serverSendNs, serverProcMs, throughputBps,
                             (jitterMs == null ? "" : String.format(Locale.US, "%.6f", jitterMs)));
@@ -283,7 +355,7 @@ public class sockettcpcli {
                     if (intervalMs > 0) Thread.sleep(intervalMs);
                 }
 
-                // Print summary statistics
+                // Resumen de estadísticas
                 System.out.println("\n=== RESUMEN ===");
                 System.out.println("RTT (ms): " + rttStats);
                 System.out.println("Throughput (bps): " + thrStats);
@@ -298,7 +370,7 @@ public class sockettcpcli {
     }
 
     /**
-     * Pads the input text to the target byte size using 'x' characters.
+     * pad - completa el texto hasta el tamaño deseado con 'x'.
      */
     private static String pad(String text, int targetBytes) {
         byte[] original = text.getBytes(StandardCharsets.UTF_8);
@@ -310,7 +382,7 @@ public class sockettcpcli {
     }
 
     /**
-     * Generates a payload string of the specified byte size using 'x' characters.
+     * generatePayload - genera un payload de bytes 'x' de tamaño especificado.
      */
     private static String generatePayload(int bytes) {
         char[] fill = new char[Math.max(0, bytes)];
@@ -319,8 +391,8 @@ public class sockettcpcli {
     }
 
     /**
-     * Parses the ACK message from the server and extracts fields.
-     * Format: "ACK|seq|serverRecvNs|serverSendNs"
+     * parseAck - parsea un mensaje ACK del servidor.
+     * Formato: "ACK|seq|serverRecvNs|serverSendNs"
      */
     private static AckFields parseAck(String ack) throws IOException {
         if (ack == null || !ack.startsWith("ACK|")) {
@@ -335,7 +407,7 @@ public class sockettcpcli {
     }
 
     /**
-     * Helper class to store ACK fields.
+     * Clase interna para almacenar campos del ACK.
      */
     private static class AckFields {
         final long seq;
@@ -345,7 +417,7 @@ public class sockettcpcli {
     }
 
     /**
-     * Simple statistics collector (min, max, average, population stddev).
+     * StatCollector - recolector de estadísticas simples (min, max, promedio, desviación estándar).
      */
     private static class StatCollector {
         private long n = 0;
@@ -353,9 +425,7 @@ public class sockettcpcli {
         private double m2 = 0;
         private double min = Double.POSITIVE_INFINITY;
         private double max = Double.NEGATIVE_INFINITY;
-        /**
-         * Adds a value to the statistics.
-         */
+
         void add(double x) {
             n++;
             double delta = x - mean;
@@ -364,14 +434,15 @@ public class sockettcpcli {
             if (x < min) min = x;
             if (x > max) max = x;
         }
+
         double mean() { return mean; }
         double variance() { return n > 0 ? m2 / n : 0; }
         double stddev() { return Math.sqrt(variance()); }
         double min() { return (n > 0 ? min : 0); }
         double max() { return (n > 0 ? max : 0); }
+
         @Override public String toString() {
             return String.format(Locale.US, "n=%d, min=%.3f, avg=%.3f, max=%.3f, std=%.3f", n, min(), mean(), max(), stddev());
         }
     }
 }
-
