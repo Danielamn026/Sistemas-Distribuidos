@@ -69,6 +69,14 @@ Utilizando la implementación `Runnable`, la secuencia de procesamiento de los p
 
 Esta comparación evidencia cómo la concurrencia, ya sea con Thread o Runnable, permite aprovechar mejor los recursos disponibles y reduce significativamente el tiempo total de procesamiento, especialmente cuando los clientes tienen cantidades de productos diferentes pero relativamente balanceadas.
 
+- Prueba PC2:
+<div align="center">
+<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/6bf1cbf9-8f9e-40fe-abcc-445923d15461" />
+</div>
+<div align="center">
+<img width="1300" height="241" alt="image" src="https://github.com/user-attachments/assets/d35be008-9387-434a-b922-952eeaae8cc1" />
+</div>
+
 ### 4.2 Prueba 2 - PC1 (mismo número de productos para ambos clientes):
 En este caso, se modificaron los datos para que los dos clientes tuvieran la misma cantidad de productos en su carrito. Esto permitió observar un mejor balance en la carga de trabajo de las cajeras cuando se utilizó concurrencia, ya que ambas cajeras procesaron aproximadamente la misma cantidad de tiempo, optimizando mejor los recursos.
 Se configuró que Cliente 1 y Cliente 2 tuvieran la misma cantidad de productos, por ejemplo, 6 productos cada uno. Los tiempos asignados fueron:
@@ -100,6 +108,14 @@ El tiempo total fue la suma de ambos, es decir, 112 segundos. Ya que la Cajera 1
 Tanto en la implementación concurrente usando `Thread` como en la que utiliza `Runnable`, ambos clientes comienzan a ser atendidos de manera casi simultánea, iniciando en 0 segundos. En ambos casos, la Cajera 1 completa la atención de Cliente 1 en 60 segundos, mientras que la Cajera 2 termina con Cliente 2 en 52 segundos, lo que determina que el tiempo global del sistema sea 60 segundos, correspondiente al cliente que tarda más.
 
 Se evidenció que la distribución desigual de trabajo afecta el aprovechamiento. Mientras una cajera quedaba desocupada después de 10 segundos, la otra seguía trabajando por 12 segundos más. Esto refleja que la concurrencia mejora los tiempos, pero no garantiza que los recursos estén balanceados si los clientes tienen cargas muy diferentes, es decir, que la eficiencia máxima se logra cuando los clientes tienen cargas similares.
+
+- Prueba PC2:
+<div align="center">
+<img width="1300" height="426" alt="image" src="https://github.com/user-attachments/assets/8addd498-fe39-4a69-b4cd-524999b0fcd1" />
+</div>
+<div align="center">
+  <img width="1300" height="226" alt="image" src="https://github.com/user-attachments/assets/dad53a4f-59fb-44ed-9d97-705782df86e4" />
+</div>
 
 ## Conclusiones
 
