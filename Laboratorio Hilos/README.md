@@ -3,9 +3,12 @@
 Proyecto que implementa la simulación de un supermercado donde cajeras procesan las compras de clientes.  
 El objetivo es comparar la diferencia entre la ejecución **secuencial** y la ejecución **paralela** mediante el uso de **hilos en Java** (`Thread` y `Runnable`).  
 
-Presentado por:  
-- Daniela Medina  
-
+Presentado por:
+- Jorge Gomez
+- Valeria Caycedo
+- Jeisson Ruiz
+- Daniela Medina
+  
 ---
 
 ## 1. ¿Qué hace?
