@@ -196,6 +196,7 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## Comparación RTT Ideal vs No Ideal (Clientes)
 
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/9f1d61e5-c73c-49a6-8b95-82a657481d00" />
 
 **Análisis:**  
 - En el escenario no ideal, se observa un incremento claro en los valores de RTT.  
