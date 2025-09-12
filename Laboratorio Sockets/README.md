@@ -104,21 +104,10 @@ El sistema ejecuta pruebas en condiciones ideales y no ideales (con degradacione
 
     #### Columnas típicas:
 
-    - seq: número de mensaje.
+<div align="center">
+    <img width="461" height="213" alt="image" src="https://github.com/user-attachments/assets/9b582ae8-b891-43bf-8ed3-062a5581e850" />
+</div>
 
-    - payload_bytes: tamaño útil por mensaje.
-
-    - client_send_ns, client_recv_ns: marcas de tiempo en cliente.
-
-    - server_recv_ns, server_send_ns: marcas en servidor.
-
-    - rtt_ms: latencia ida y vuelta estimada por el cliente.
-
-    - server_proc_ms: tiempo de procesamiento del servidor.
-
-    - throughput_bps: tasa efectiva estimada.
-
-    - jitter_ms: variación de retardo entre mensajes consecutivos.
 
     #### FIG (gráficas MATLAB/Octave):
 
