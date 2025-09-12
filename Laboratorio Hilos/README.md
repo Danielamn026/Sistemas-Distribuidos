@@ -131,14 +131,6 @@ Tanto en la implementación concurrente usando `Thread` como en la que utiliza `
 
 Se evidenció que la distribución desigual de trabajo afecta el aprovechamiento. Mientras una cajera quedaba desocupada después de 10 segundos, la otra seguía trabajando por 12 segundos más. Esto refleja que la concurrencia mejora los tiempos, pero no garantiza que los recursos estén balanceados si los clientes tienen cargas muy diferentes, es decir, que la eficiencia máxima se logra cuando los clientes tienen cargas similares.
 
-- Prueba PC1:
-<div align="center">
-<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/6bf1cbf9-8f9e-40fe-abcc-445923d15461" />
-</div>
-<div align="center">
-<img width="1300" height="241" alt="image" src="https://github.com/user-attachments/assets/d35be008-9387-434a-b922-952eeaae8cc1" />
-</div>
-
 - Prueba PC2:
 <div align="center">
 <img width="1300" height="426" alt="image" src="https://github.com/user-attachments/assets/8addd498-fe39-4a69-b4cd-524999b0fcd1" />
