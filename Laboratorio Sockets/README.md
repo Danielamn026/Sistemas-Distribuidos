@@ -172,7 +172,7 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## Mensajes recibidos (Caso Ideal)
 
-![Mensajes recibidos](data/exported_png/Mensajes%20recibidos%20caso%20ideal.png)
+<img width="875" height="656" alt="image" src="https://github.com/user-attachments/assets/137f6687-9aeb-40f5-b0df-9edc688de547" />
 
 **Análisis:**  
 - En el escenario ideal, prácticamente todos los mensajes enviados son recibidos correctamente.  
@@ -184,7 +184,7 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## RTT en clientes
 
-![RTT clientes](data/exported_png/RTT%20clientes.png)
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/b9c66653-bc04-40a1-9f2b-7f893b53554d" />
 
 **Análisis:**  
 - El RTT (tiempo de ida y vuelta) en condiciones ideales se mantiene bajo y estable.  
@@ -196,7 +196,6 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## Comparación RTT Ideal vs No Ideal (Clientes)
 
-![RTT Ideal vs No Ideal](data/exported_png/RTT%20ideal%20vs%20no%20ideal Clientes.png)
 
 **Análisis:**  
 - En el escenario no ideal, se observa un incremento claro en los valores de RTT.  
@@ -208,7 +207,7 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## Throughput en clientes
 
-![Throughput clientes](data/exported_png/Throughput%20Clientes.png)
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/4fb44df9-1c0c-4c2e-8f07-1378ebe89fec" />
 
 **Análisis:**  
 - En el escenario ideal, ambos protocolos logran un throughput alto.  
@@ -220,7 +219,7 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## Comparación Throughput Ideal vs No Ideal
 
-![Throughput Ideal vs No Ideal](data/exported_png/Throughput%20ideal%20vs%20no%20ideal.png)
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/4aedea38-f364-4dc1-a199-f9141d0db3e2" />
 
 **Análisis:**  
 - En el escenario no ideal, el throughput de UDP se degrada significativamente cuando ocurren pérdidas.  
@@ -231,7 +230,7 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## Tiempo de procesamiento en el servidor
 
-![Tiempo procesamiento servidor](data/exported_png/Tiempo%20de%20procesamiento%20del%20servidor.png)
+<img width="875" height="656" alt="image" src="https://github.com/user-attachments/assets/dfa85bfc-2704-4cb8-a7c1-1f5231ec6876" />
 
 **Análisis:**  
 - El tiempo de procesamiento en el servidor depende directamente de la cantidad de clientes concurrentes y de la eficiencia en el manejo de hilos.  
@@ -243,28 +242,28 @@ Las visualizaciones se encuentran en data/*.fig.
 
 ## Comparación Jitter Cliente: Ideal vs No Ideal
 
-![Comparación Jitter Cliente: Ideal vs No Ideal](data/exported_png/Jitter%20ideal%20vs%20no%20idea%20clientes.png)
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/88cd543f-112e-4438-a30e-9e7037a56d17" />
 
 **Análisis:**  
 Esta gráfica muestra cómo el jitter varía dramáticamente en escenarios no ideales, especialmente para TCP (línea roja), donde se observan picos de hasta 400 ms. En contraste, tanto TCP como UDP en condiciones ideales mantienen un jitter muy bajo y estable. Esto reafirma que el entorno afecta de manera significativa la variabilidad de la latencia y que los protocolos reaccionan de manera diferente ante condiciones adversas.
 
 ---
 ## Distribución de RTT: TCP vs UDP
-![Distribución RTT cliente](data/exported_png/Distribucion%20RTT%20cliente.png)
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/a47ea032-c18f-4650-bdf9-46f3db459226" />
 
 **Análisis:**  
 Aquí se observa la distribución de los tiempos de ida y vuelta (RTT) para TCP y UDP. La mayoría de los mensajes tienen RTT bajo (<10 ms), pero UDP muestra ocasionalmente valores atípicos mucho más altos. TCP tiende a mantener una distribución más concentrada y confiable, debido a sus mecanismos de control y retransmisión.
 
 ---
 ## Jitter por mensaje: TCP vs UDP
-![Jitter Clientes](data/exported_png/Jitter%20Clientes.png)
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/c75d3faa-cf0a-4465-9210-41b71e84973d" />
 
 **Análisis:**  
 El jitter por mensaje para TCP muestra variaciones ocasionales, pero UDP permanece extremadamente bajo y constante. Esto sugiere que UDP, aunque no garantiza entrega, ofrece consistencia de latencia en estos escenarios, mientras que TCP puede verse afectado por retransmisiones y control de congestión.
 
 ---
 ## Comparación RTT Cliente: Ideal vs No Ideal
-![RTT ideal vs no ideal Clientes](data/exported_png/RTT%20ideal%20vs%20no%20ideal%20Clientes.png)
+<img width="2400" height="1307" alt="image" src="https://github.com/user-attachments/assets/b4040696-0553-45a5-80d2-10dc0a18e1fa" />
 
 **Análisis:**  
 La gráfica evidencia que tanto TCP como UDP presentan RTT significativamente mayores y más variables en condiciones no ideales. Las líneas correspondientes a los casos no ideales muestran picos y fluctuaciones que superan los 400 ms, mientras que los escenarios ideales mantienen RTT bajos y estables. El entorno de red y la calidad de la conexión son factores críticos para el desempeño de ambos protocolos.
