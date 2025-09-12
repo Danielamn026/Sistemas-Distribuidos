@@ -39,24 +39,25 @@ udp-tcp/
 ## ¿Qué hace?
 Se implementan cuatro programas:
 
-- Servidor TCP (sockettcpser.java): acepta múltiples clientes, procesa solicitudes y responde.
+- Servidor TCP (sockettcpser.java): Acepta múltiples clientes de manera concurrente utilizando hilos. Cada solicitud recibida es procesada individualmente, registrando marcas de tiempo tanto de recepción como de envío, lo que permite estimar el tiempo de procesamiento en el servidor (server_proc_ms). Gracias al uso de TCP, el servidor garantiza la confiabilidad del transporte y la entrega ordenada de los mensajes.
 
-- Cliente TCP (sockettcpcli.java): envía mensajes, mide RTT, estima jitter y calcula throughput.
+- Cliente TCP (sockettcpcli.java): Se conecta al servidor y envía mensajes configurables en tamaño y número. A partir de los sellos de tiempo, el cliente mide RTT, calcula jitter y estima throughput, proporcionando una visión completa del desempeño del protocolo en distintos escenarios.
 
-- Servidor UDP (socketudpser.java): recibe datagramas y responde sin mantener sesión.
+- Servidor UDP (socketudpser.java): Opera sin mantener conexiones persistentes, atendiendo datagramas de manera independiente. Cada mensaje recibido se procesa y se responde con un ACK, mientras se registran marcas de tiempo que permiten evaluar el desempeño del servidor frente a cargas variables.
 
-- Cliente UDP (socketudpcli.java): envía datagramas y registra tiempos para RTT, jitter y throughput.
+- Cliente UDP (socketudpcli.java): Envía datagramas al servidor y calcula RTT, jitter y throughput desde la perspectiva del cliente. Este cliente es útil para simular escenarios no ideales, en los que se pueden introducir retrasos, pérdidas de paquetes o congestión de red, evaluando la capacidad de UDP para manejar condiciones adversas.
 
-### Métricas y escenarios:
+---
+
+### Métricas y Escenarios:
+
 El sistema ejecuta pruebas en condiciones ideales y no ideales (con degradaciones como retrasos, variación de retardo o pérdidas). Las métricas se registran en archivos CSV y se visualizan en FIG:
 
-- RTT (ms): tiempo de ida y vuelta desde cliente.
+<div align="center">
+<img width="675" height="408" alt="image" src="https://github.com/user-attachments/assets/5f11d5bb-3463-4269-bd68-38b834c52d62" />
+</div>
 
-- Jitter (ms): variación entre retardos consecutivos.
-
-- Throughput (bps): tasa efectiva de transferencia.
-
-- Tiempo de procesamiento del servidor (ms): diferencia entre envío y recepción en el servidor.
+---
 
 ## Objetivos
 
@@ -71,6 +72,9 @@ El sistema ejecuta pruebas en condiciones ideales y no ideales (con degradacione
 3. Registrar métricas en CSV y visualizar resultados (archivos .fig).
 
 4. Comparar protocolos y discutir compromisos de fiabilidad vs. rendimiento.
+
+---
+
 ## Documentación del Código
 
 ### Programas (Java)
@@ -125,10 +129,15 @@ El sistema ejecuta pruebas en condiciones ideales y no ideales (con degradacione
     - Throughput: Throughput Clientes.fig, Throughput ideal vs no ideal.fig
 
     - Otros: Mensajes recibidos caso ideal.fig, Tiempo de procesamiento del servidor.fig
+ 
+--- 
+
  ## Compilación (Linux)
  ```
  javac sockettcpser.java sockettcpcli.java socketudpser.java socketudpcli.java
 ```
+--- 
+
 ## Ejecución (Linux)
 ```
 # Terminal 1
@@ -146,19 +155,14 @@ java socketudpser
 # Terminal 2
 java socketudpcli
 ```
+---
+
 ## Pruebas
+
 Se ejecutaron pruebas en escenario ideal y no ideal para ambos protocolos (TCP/UDP).
 Los resultados numéricos se encuentran en data/*.csv.
 Las visualizaciones se encuentran en data/*.fig.
 
-### Sugerencia para reporte:
-
-- Estadísticos: media, mediana, p95 y p99 de rtt_ms, jitter_ms, throughput_bps, server_proc_ms.
-
-- Series temporales: métricas vs. seq para detectar picos y colas.
-
-- Comparaciones: ideal vs. no ideal por protocolo.
-  
 ## Observaciones y Conclusiones
 
 - TCP presenta RTT más estable y jitter menor por sus mecanismos de control, a costa de overhead y     posibles caídas de throughput bajo pérdidas.
