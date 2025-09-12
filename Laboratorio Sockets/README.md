@@ -91,34 +91,36 @@ El sistema ejecuta pruebas en condiciones ideales y no ideales (con degradacione
 - socketudpcli.java
   Cliente UDP. Envía datagramas y, cuando corresponde, calcula RTT; además estima jitter y throughput   según los tiempos de recepción.
 
-  ### Datos (/data)
-  #### CSV (por protocolo, rol y escenario):
+### Datos (/data)
 
-    - TCP (ideal): tcp_client_metrics.csv, tcp_server_metrics.csv
+#### CSV
 
-    - TCP (no ideal): tcp_client_metrics_noIdeal.csv, tcp_server_metricsnoIdeal.csv
+Cada prueba genera archivos CSV separados por protocolo, rol (cliente/servidor) y escenario.
 
-    - UDP (ideal): udp_client_metrics.csv, udp_server_metrics.csv
+- TCP (ideal): tcp_client_metrics.csv, tcp_server_metrics.csv
 
-    - UDP (no ideal): udp_client_metricsNoIdeal.csv, udp_server_metricsnoIdeal.csv
+- TCP (no ideal): tcp_client_metrics_noIdeal.csv, tcp_server_metricsnoIdeal.csv
 
-    #### Columnas típicas:
+- UDP (ideal): udp_client_metrics.csv, udp_server_metrics.csv
+
+- UDP (no ideal): udp_client_metricsNoIdeal.csv, udp_server_metricsnoIdeal.csv
+
+#### Columnas típicas:
 
 <div align="center">
     <img width="461" height="213" alt="image" src="https://github.com/user-attachments/assets/9b582ae8-b891-43bf-8ed3-062a5581e850" />
 </div>
 
+#### FIG (gráficas MATLAB/Octave):
 
-    #### FIG (gráficas MATLAB/Octave):
+- RTT: RTT clientes.fig, RTT ideal vs no ideal Clientes.fig
 
-    - RTT: RTT clientes.fig, RTT ideal vs no ideal Clientes.fig
+- Jitter: Jitter Clientes.fig, Jitter ideal vs no idea clientes.fig
 
-    - Jitter: Jitter Clientes.fig, Jitter ideal vs no idea clientes.fig
+- Throughput: Throughput Clientes.fig, Throughput ideal vs no ideal.fig
 
-    - Throughput: Throughput Clientes.fig, Throughput ideal vs no ideal.fig
+- Otros: Mensajes recibidos caso ideal.fig, Tiempo de procesamiento del servidor.fig
 
-    - Otros: Mensajes recibidos caso ideal.fig, Tiempo de procesamiento del servidor.fig
- 
 --- 
 
  ## Compilación (Linux)
