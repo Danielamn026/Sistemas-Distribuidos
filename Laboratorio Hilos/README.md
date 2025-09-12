@@ -69,6 +69,17 @@ Utilizando la implementación `Runnable`, la secuencia de procesamiento de los p
 
 Esta comparación evidencia cómo la concurrencia, ya sea con Thread o Runnable, permite aprovechar mejor los recursos disponibles y reduce significativamente el tiempo total de procesamiento, especialmente cuando los clientes tienen cantidades de productos diferentes pero relativamente balanceadas.
 
+- Prueba PC1:
+<div align="center">
+<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/946984f7-abc4-411e-a97d-c02616fd5fb1" />
+</div>
+<div align="center">
+<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/d88a41e6-09f7-4d2a-b873-8d572d68ddbd" />
+</div>
+<div align="center">
+<img width="1300" height="241" alt="image" src="https://github.com/user-attachments/assets/4704d775-2822-4531-8511-60acc2dcbc3e" />
+</div>
+
 - Prueba PC2:
 <div align="center">
 <img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/6bf1cbf9-8f9e-40fe-abcc-445923d15461" />
@@ -93,6 +104,17 @@ En la ejecución concurrente utilizando `Thread`, ambos clientes comienzan a ser
 
 Este caso muestra que cuando los clientes tienen carritos de tamaño similar, la concurrencia aprovecha mucho mejor los recursos disponibles. Con cargas idénticas, la concurrencia maximiza la eficiencia. El tiempo se reduce exactamente a la mitad frente a la secuencial, y ambas formas de concurrencia (Thread y Runnable) se comportan de manera idéntica.
 
+- Prueba PC1:
+<div align="center">
+<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/f48d2a85-1f37-4fc9-a575-a0319989b66b" />
+</div>
+<div align="center">
+<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/7cbd31b8-e4d3-4d78-8e77-e35248008d50" />
+</div>
+<div align="center">
+<img width="1300" height="241" alt="image" src="https://github.com/user-attachments/assets/9243dd48-fd56-4031-922b-feb41ef1cf1b" />
+</div>
+
 ### 4.3 Prueba 3 - PC2 (diferente número de productos para los clientes):
 Aquí se probaron nuevos valores en los que los clientes no tenían la misma cantidad de productos. El resultado evidenció que, aunque la concurrencia sigue siendo más eficiente que la ejecución secuencial, una cajera finaliza antes que la otra debido a la diferencia en la carga de trabajo. Este escenario refleja cómo la distribución desigual de tareas puede afectar el aprovechamiento de la concurrencia.
 se probó una situación con desbalance en el número de productos de cada cliente.
@@ -108,6 +130,14 @@ El tiempo total fue la suma de ambos, es decir, 112 segundos. Ya que la Cajera 1
 Tanto en la implementación concurrente usando `Thread` como en la que utiliza `Runnable`, ambos clientes comienzan a ser atendidos de manera casi simultánea, iniciando en 0 segundos. En ambos casos, la Cajera 1 completa la atención de Cliente 1 en 60 segundos, mientras que la Cajera 2 termina con Cliente 2 en 52 segundos, lo que determina que el tiempo global del sistema sea 60 segundos, correspondiente al cliente que tarda más.
 
 Se evidenció que la distribución desigual de trabajo afecta el aprovechamiento. Mientras una cajera quedaba desocupada después de 10 segundos, la otra seguía trabajando por 12 segundos más. Esto refleja que la concurrencia mejora los tiempos, pero no garantiza que los recursos estén balanceados si los clientes tienen cargas muy diferentes, es decir, que la eficiencia máxima se logra cuando los clientes tienen cargas similares.
+
+- Prueba PC1:
+<div align="center">
+<img width="1300" height="361" alt="image" src="https://github.com/user-attachments/assets/6bf1cbf9-8f9e-40fe-abcc-445923d15461" />
+</div>
+<div align="center">
+<img width="1300" height="241" alt="image" src="https://github.com/user-attachments/assets/d35be008-9387-434a-b922-952eeaae8cc1" />
+</div>
 
 - Prueba PC2:
 <div align="center">
