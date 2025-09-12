@@ -54,7 +54,7 @@ Se implementan cuatro programas:
 El sistema ejecuta pruebas en condiciones ideales y no ideales (con degradaciones como retrasos, variación de retardo o pérdidas). Las métricas se registran en archivos CSV y se visualizan en FIG:
 
 <div align="center">
-<img width="475" height="250" alt="image" src="https://github.com/user-attachments/assets/5f11d5bb-3463-4269-bd68-38b834c52d62" />
+<img width="460" height="248" alt="image" src="https://github.com/user-attachments/assets/92c55006-e1a6-4eca-9834-77fd8f0541fa" />
 </div>
 
 ---
