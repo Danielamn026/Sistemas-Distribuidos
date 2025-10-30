@@ -120,17 +120,90 @@ Crear el directorio donde el DataNode almacenará los datos que forman parte del
 <img width="921" height="26" alt="image" src="https://github.com/user-attachments/assets/1303aa08-5df3-4394-859b-d262bc2b8d10" />
 </div>
 
+---
+
+## 3. Configuración del NameNode
 
 
+#### - nano /usr/local/hadoop/etc/hadoop/workers
+Se modifica el archivo workers para agregar los computadores esclavos (DataNodes) que forman parte del cluster de Hadoop.
 
+<div align="center">
+<img width="921" height="624" alt="image" src="https://github.com/user-attachments/assets/9ee62048-5ca9-440a-8eae-5caebe7dbeb4" />
+</div>
 
+#### - ssh-keygen -t rsa -P “”
+Genera un par de llaves SSH para que el máster pueda conectarse a los esclavos sin necesidad de contraseña.
 
+<div align="center">
+<img width="921" height="538" alt="image" src="https://github.com/user-attachments/assets/1a5b1fa7-438d-411f-8f16-a0b01b7929e6" />
+</div>
 
+#### - ssh-copy-id estudiante@esclavo#
+Copia la llave pública del máster a los esclavos para permitir conexión SSH sin contraseña.
 
+<div align="center">
+<img width="921" height="344" alt="image" src="https://github.com/user-attachments/assets/379e6330-0497-458b-9d55-fe49acfd14b7" />
+</div>
 
+#### - mkdir -p /usr/local/hadoop/data/namenode
+Crea el directorio donde el NameNode guardará su metadata.
 
+#### - hdfs namenode -format
+Inicializa el sistema de archivos HDFS por primera vez.
 
+<div align="center">
+<img width="921" height="286" alt="image" src="https://github.com/user-attachments/assets/f0487536-6b5e-45b1-80c5-113c7bd83d1e" />
+</div>
 
+#### - start-dfs.sh
+Inicia todos los servicios de HDFS en el clúster completo desde el master con un solo comando.
+
+<div align="center">
+<img width="622" height="117" alt="image" src="https://github.com/user-attachments/assets/f380d738-ebcc-4d09-894a-79dccfae11aa" />
+</div>
+
+#### - stop-dfs.sh
+Detiene todos los servicios del HDFS en el clúster completo desde el master.
+
+<div align="center">
+<img width="622" height="117" alt="image" src="https://github.com/user-attachments/assets/88a8e3a5-5099-4975-a296-852a195f9085" />
+</div>
+
+---
+
+## 4. Resumen del Cluster
+
+<div align="center">
+<img width="921" height="524" alt="image" src="https://github.com/user-attachments/assets/0c2195e6-a7b1-4246-b160-81cdcfeef814" />
+</div>
+
+<div align="center">
+<img width="921" height="524" alt="image" src="https://github.com/user-attachments/assets/5662a84f-77ba-441b-acb5-16f25bca24ac" />
+</div>
+
+---
+
+## 5. Análisis
+Se observó que la comunicación entre nodos dependía directamente de la correcta configuración del archivo `/etc/hosts`, ya que cualquier error en las direcciones IP o en los nombres asignados podía impedir la conexión entre el NameNode y los DataNodes. Así mismo, la definición de las variables de entorno en `.bashrc` y `hadoop-env.sh` fue clave para que el sistema reconociera las rutas de Java y Hadoop y pudiera iniciar sin errores.
+Una vez ejecutado el comando start-dfs.sh, el clúster mostró el funcionamiento esperado: los DataNodes se conectaron correctamente al NameNode, y fue posible visualizar el estado general del sistema a través de la interfaz web de Hadoop (puerto 9870).
+Los valores de capacidad usada y disponible presentados en dicha interfaz confirmaron que el sistema estaba correctamente preparado para almacenar información y distribuir los bloques de datos de manera equilibrada entre ambos DataNodes.
+Asimismo, el gráfico “DataNode Usage Histogram” evidenció actividad en los dos nodos, lo que validó que el sistema de archivos distribuido se encontraba operativo de forma correcta.
+En conjunto, esto permitió confirmar la comunicación efectiva entre los equipos y comprobar que la distribución y gestión de los datos en el HDFS se realizaban de forma adecuada y estable.
+Entre las principales dificultades encontradas estuvo la instalación de las versiones correctas de Java (17.0.6) y Hadoop (3.3.6), así como la sincronización de los entornos en los tres computadores. También fue necesario ajustar los permisos y rutas de los directorios donde se almacenaban los datos para evitar errores de acceso.
+En general, el sistema mostró un comportamiento estable y coherente con los principios de los sistemas distribuidos: replicación de información, tolerancia a fallos y escalabilidad. El trabajo permitió comprender cómo HDFS divide y distribuye los datos en bloques entre distintos nodos, garantizando que el sistema siga operativo incluso si uno de los DataNodes deja de funcionar.
+
+---
+
+## 6. Conclusiones
+
+La realización de este taller permitió comprender de manera práctica cómo funciona un sistema de archivos distribuido y la relevancia que tiene la coordinación entre múltiples nodos para el manejo eficiente de datos.
+
+A través de la configuración del clúster Hadoop HDFS con un NameNode y dos DataNodes, se comprobó que la correcta definición de parámetros y rutas es esencial para lograr una comunicación estable y una distribución balanceada de la información.
+
+Más allá del resultado técnico, la experiencia permitió fortalecer habilidades de resolución de problemas, trabajo colaborativo y comprensión de la arquitectura distribuida, Se comprobó que la arquitectura maestro–esclavo de Hadoop facilita la distribución y replicación de datos, mejorando la disponibilidad y la tolerancia a fallos
+
+Finalmente, la práctica evidenció que Hadoop HDFS es una solución robusta y confiable para el almacenamiento masivo de datos, ofreciendo una base sólida para comprender los fundamentos de los sistemas distribuidos
 
 
 
