@@ -43,9 +43,104 @@ Instala el JDK versión 17.0.16
 </div>
 
 #### wget https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz 
+Descarga el paquete comprimido de Hadoop, desde el repositorio oficial de Apache.
+
+<div align="center">
+<img width="921" height="333" alt="image" src="https://github.com/user-attachments/assets/86798174-904e-4acf-b962-cec609ba136a" />
+</div>
+
 #### tar -xzvf hadoop-3.3.6.tar.gz 
+Descomprime y extrae los archivos del paquete de Hadoop.
+
+<div align="center">
+<img width="921" height="430" alt="image" src="https://github.com/user-attachments/assets/970d7e5a-284d-4400-9afa-63e1b9a933da" />
+</div>
+
 #### sudo mv hadoop-3.3.6 /usr/local/Hadoop
-Descarga el archivo que contiene Apache  Hadoop, descomprime el mismo y ubica el directorio de Hadoop en /url/local/
+Mueve la carpeta de Hadoop a `/usr/local/`,
+
+<div align="center">
+<img width="921" height="35" alt="image" src="https://github.com/user-attachments/assets/45a54deb-ab60-4526-a2ca-4c9ec17d0ba5" />
+</div>
+
+#### nano ~/.bashrc 
+Se definen las variables de entorno. Indica la ruta en la que está instalada tanto Java como Hadoop. Además, permite que se ejecuten los comandos de Hadoop desde cualquier directorio.
+
+<div align="center">
+<img width="921" height="434" alt="image" src="https://github.com/user-attachments/assets/0319cc14-b16f-4953-92a5-12f4761e4742" />
+</div>
+
+#### source ~/.bashr
+Recarga el archivo, aplicando los cambios. 
+
+<div align="center">
+<img width="921" height="19" alt="image" src="https://github.com/user-attachments/assets/57c7b153-388b-478e-a1ce-d76bd2a8a9a4" />
+</div>
+
+#### sudo nano core-side.xml
+Se abre el archivo donde se define la configuración base de Hadoop, incluyendo la dirección del NameNode, que es el nodo maestro encargado de gestionar la estructura del sistema de archivos HDFS, en este caso su ip es 10.43.103.44 y 9000 es el puerto que usará Hadoop para las comunicaciones con el NameNode.
+
+<div align="center">
+<img width="921" height="426" alt="image" src="https://github.com/user-attachments/assets/13e21afa-488c-4e1d-b74a-4b59cc7a880d" />
+</div>
+
+#### sudo nano hdfs-side.xml
+Define la configuración específica del HDFS, tal como la replicación de datos y rutas locales de almacenamiento del NameNode.
+
+<div align="center">
+<img width="921" height="430" alt="image" src="https://github.com/user-attachments/assets/f8112f15-127e-42c8-a732-eb99ba519f16" />
+</div>
+
+#### sudo nano /etc/hosts
+Abre el archivo que asocia direcciones IP con nombres de host. Es muy importante para que Hadoop pueda comunicarse correctamente entre los nodos, es decir, tanto el NameNode como el DataNodes, usando nombres en lugar de direcciones IP.
+En este caso la ip 10.43.103.44 representa al NameNode. Por otro lado, las ip 10.43.102.227 y 10.43.103.58 son DataNodes. Los otros datos son configuraciones predeterminadas para redes con compatibilidad IPv6
+
+<div align="center">
+<img width="921" height="431" alt="image" src="https://github.com/user-attachments/assets/460b6ee0-102a-4bd9-880d-6f256a53acb4" />
+</div>
+
+#### sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+Abre el archivo donde se configuran las variables de entorno que utiliza Hadoop en su ejecución interna. Le indica a Hadoop qué versión de Java usar y dónde se encuentran sus librerías.
+
+<div align="center">
+<img width="921" height="429" alt="image" src="https://github.com/user-attachments/assets/5e2c441c-788c-4cff-b89d-5b22c2d1ff87" />
+</div>
+
+#### source /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+Recarga el archivo actualizado para que las variables definidas en él se apliquen a la sesión actual.
+
+<div align="center">
+<img width="921" height="19" alt="image" src="https://github.com/user-attachments/assets/588fba9a-04b3-4406-be57-60702854e6c7" />
+</div>
+
+####	mkdir -p /usr/local/hadoop/data/datanode
+Crear el directorio donde el DataNode almacenará los datos que forman parte del sistema de HDFS.
+
+<div align="center">
+<img width="921" height="26" alt="image" src="https://github.com/user-attachments/assets/1303aa08-5df3-4394-859b-d262bc2b8d10" />
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
