@@ -30,3 +30,25 @@ El proceso incluyó:
 
 #### sudo apt update
 Actualiza la lista de paquetes disponibles en los repositorios del sistema, para que se instalen las versiones mas recientes. 
+
+<div align="center">
+<img width="921" height="213" alt="image" src="https://github.com/user-attachments/assets/62486b19-2cc2-40b5-adfa-7aeb4dd9e43b" />
+</div>
+
+#### sudo apt install openjdk-17-jdk -y 
+Instala el JDK versión 17.0.16
+
+<div align="center">
+<img width="921" height="140" alt="image" src="https://github.com/user-attachments/assets/4de6cc34-ebfd-42cd-93fe-290aaf4653f9" />
+</div>
+
+#### wget https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz 
+#### tar -xzvf hadoop-3.3.6.tar.gz 
+#### sudo mv hadoop-3.3.6 /usr/local/Hadoop
+Descarga el archivo que contiene Apache  Hadoop, descomprime el mismo y ubica el directorio de Hadoop en /url/local/
+
+
+
+
+
+
