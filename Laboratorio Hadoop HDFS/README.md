@@ -27,6 +27,7 @@ El proceso incluyó:
 ---
 
 ## 2. Configuración del DataNode
+Cada uno de los siguientes comandos fueron ejecutados en cada computador que ejercia la función de DataNode
 
 #### - sudo apt update
 Actualiza la lista de paquetes disponibles en los repositorios del sistema, para que se instalen las versiones mas recientes. 
