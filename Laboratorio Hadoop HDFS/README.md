@@ -26,8 +26,8 @@ El proceso incluyó:
 
 ---
 
-## 2. Configuración del DataNode
-Cada uno de los siguientes comandos fueron ejecutados en cada computador que ejercia la función de DataNode
+## 2. Configuracines Generales del DataNode y NameNode
+Cada uno de los siguientes comandos fueron ejecutados en cada computador que ejercia la función de DataNode y Namenode
 
 #### - sudo apt update
 Actualiza la lista de paquetes disponibles en los repositorios del sistema, para que se instalen las versiones mas recientes. 
@@ -114,6 +114,10 @@ Recarga el archivo actualizado para que las variables definidas en él se apliqu
 <img width="921" height="19" alt="image" src="https://github.com/user-attachments/assets/588fba9a-04b3-4406-be57-60702854e6c7" />
 </div>
 
+
+## 3. Configuración Específica para el DataNode
+El siguientes comando fue ejecutado en cada computador que ejercia la función de DataNode.
+
 ####	- mkdir -p /usr/local/hadoop/data/datanode
 Crear el directorio donde el DataNode almacenará los datos que forman parte del sistema de HDFS.
 
@@ -123,8 +127,8 @@ Crear el directorio donde el DataNode almacenará los datos que forman parte del
 
 ---
 
-## 3. Configuración del NameNode
-
+## 4. Configuración del NameNode
+Cada uno de los siguientes comandos fueron ejecutados en cada computador que ejercia la función de NameNode
 
 #### - nano /usr/local/hadoop/etc/hadoop/workers
 Se modifica el archivo workers para agregar los computadores esclavos (DataNodes) que forman parte del cluster de Hadoop.
@@ -173,7 +177,7 @@ Detiene todos los servicios del HDFS en el clúster completo desde el master.
 
 ---
 
-## 4. Resumen del Cluster
+## 5. Resumen del Cluster
 
 <div align="center">
 <img width="921" height="524" alt="image" src="https://github.com/user-attachments/assets/0c2195e6-a7b1-4246-b160-81cdcfeef814" />
@@ -185,7 +189,7 @@ Detiene todos los servicios del HDFS en el clúster completo desde el master.
 
 ---
 
-## 5. Análisis
+## 6. Análisis
 Se observó que la comunicación entre nodos dependía directamente de la correcta configuración del archivo `/etc/hosts`, ya que cualquier error en las direcciones IP o en los nombres asignados podía impedir la conexión entre el NameNode y los DataNodes. Así mismo, la definición de las variables de entorno en `.bashrc` y `hadoop-env.sh` fue clave para que el sistema reconociera las rutas de Java y Hadoop y pudiera iniciar sin errores.
 Una vez ejecutado el comando start-dfs.sh, el clúster mostró el funcionamiento esperado: los DataNodes se conectaron correctamente al NameNode, y fue posible visualizar el estado general del sistema a través de la interfaz web de Hadoop (puerto 9870).
 Los valores de capacidad usada y disponible presentados en dicha interfaz confirmaron que el sistema estaba correctamente preparado para almacenar información y distribuir los bloques de datos de manera equilibrada entre ambos DataNodes.
@@ -196,7 +200,7 @@ En general, el sistema mostró un comportamiento estable y coherente con los pri
 
 ---
 
-## 6. Conclusiones
+## 7. Conclusiones
 
 La realización de este taller permitió comprender de manera práctica cómo funciona un sistema de archivos distribuido y la relevancia que tiene la coordinación entre múltiples nodos para el manejo eficiente de datos.
 
@@ -206,7 +210,9 @@ Más allá del resultado técnico, la experiencia permitió fortalecer habilidad
 
 Finalmente, la práctica evidenció que Hadoop HDFS es una solución robusta y confiable para el almacenamiento masivo de datos, ofreciendo una base sólida para comprender los fundamentos de los sistemas distribuidos
 
+---
 
+## 8. Referencias
 
 
 
