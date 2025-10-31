@@ -127,7 +127,7 @@ Crear el directorio donde el DataNode almacenará los datos que forman parte del
 
 ---
 
-## 4. Configuración del NameNode
+## 4. Configuración Específica del NameNode
 Cada uno de los siguientes comandos fueron ejecutados en cada computador que ejercia la función de NameNode
 
 #### - nano /usr/local/hadoop/etc/hadoop/workers
