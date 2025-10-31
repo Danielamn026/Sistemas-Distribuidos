@@ -26,7 +26,7 @@ El proceso incluyó:
 
 ---
 
-## 2. Configuracines Generales del DataNode y NameNode
+## 2. Configuraciones Generales del DataNode y NameNode
 Cada uno de los siguientes comandos fueron ejecutados en cada computador que ejercia la función de DataNode y Namenode
 
 #### - sudo apt update
@@ -214,7 +214,9 @@ Finalmente, la práctica evidenció que Hadoop HDFS es una solución robusta y c
 
 ## 8. Referencias
 
-
+- Steps to Install and Configure HDFS | MOSIP Docs 1.1.5. (s. f.). MOSIP Docs 1.1.5. https://docs-mosip-io.translate.goog/1.1.5/build-and-deploy/other-installation-guides/steps-to-install-and-configure-hdfs?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc&_x_tr_hist=true
+- Javier Abellán Ferrer. (2024, 5 febrero). Puesta en marcha del clúster HDFS de Hadoop [Vídeo]. YouTube. https://www.youtube.com/watch?v=cmGDpV30Daw
+- Como auxiliar extra se utilizo la herramienta de Inteligencia Artificial ChatGPT.
 
 
 
